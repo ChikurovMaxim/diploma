@@ -20,8 +20,6 @@ public interface UserDAO {
 
     List getAll();
 
-    List getAllPersonsRoles(Long id);
-
     Integer countPersons();
 
     List<User> findPersons(int startPosition, int maxResults, String sortFields, String sortDirections);

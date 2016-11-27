@@ -79,6 +79,18 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,17 +102,21 @@ public class User implements Serializable {
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
         if (role != user.role) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        return password != null ? password.equals(user.password) : user.password == null;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (company != null ? !company.equals(user.company) : user.company != null) return false;
+        return result != null ? result.equals(user.result) : user.result == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
+        int result1 = id != null ? id.hashCode() : 0;
+        result1 = 31 * result1 + (name != null ? name.hashCode() : 0);
+        result1 = 31 * result1 + (role != null ? role.hashCode() : 0);
+        result1 = 31 * result1 + (login != null ? login.hashCode() : 0);
+        result1 = 31 * result1 + (password != null ? password.hashCode() : 0);
+        result1 = 31 * result1 + (company != null ? company.hashCode() : 0);
+        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
+        return result1;
     }
 }

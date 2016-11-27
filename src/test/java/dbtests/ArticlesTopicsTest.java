@@ -1,6 +1,6 @@
 package dbtests;
 
-import com.news.dao.ArticleDAO;
+import com.news.dao.CompanyDAO;
 import com.news.dao.TopicDAO;
 import com.news.dao.UserDAO;
 import com.news.entities.Company;
@@ -25,7 +25,7 @@ public class ArticlesTopicsTest {
     private TopicDAO topicDAO;
 
     @Autowired
-    private ArticleDAO articleDAO;
+    private CompanyDAO companyDAO;
 
     @Autowired
     private UserDAO userDAO;
@@ -38,7 +38,7 @@ public class ArticlesTopicsTest {
         User u = userDAO.findPerson(2l);
         t = new PlainModel("java","java", null);
         a = new Company("context", "content", u, t ,"");
-        articleDAO.saveArticle(2l, a);
+        companyDAO.saveArticle(2l, a);
     }
 
 
@@ -47,33 +47,33 @@ public class ArticlesTopicsTest {
     public void testSaveArticle(){
         int firstLook, secondLook;
         assertNotNull(topicDAO.saveTopic(2l, t));
-        firstLook = articleDAO.getAll().size();
-        assertNotNull(articleDAO.saveArticle(2l, a));
-        secondLook = articleDAO.getAll().size();
+        firstLook = companyDAO.getAll().size();
+        assertNotNull(companyDAO.saveArticle(2l, a));
+        secondLook = companyDAO.getAll().size();
         assertNotEquals(firstLook,secondLook);
     }
 
     @Test
     public void testFindArticle(){
-        assertNotNull(articleDAO.findArticle(2L));
-        assertNotNull(articleDAO.findArticlesForCreator(2L));
-        assertNotNull(articleDAO.findArticlesForDate("2016-01-26-14-44"));
+        assertNotNull(companyDAO.findArticle(2L));
+        assertNotNull(companyDAO.findArticlesForCreator(2L));
+        assertNotNull(companyDAO.findArticlesForDate("2016-01-26-14-44"));
     }
 
     @Test
     public void testChangeCreator(){
-        articleDAO.changeArticlesCreator(2l,4l,1l);
-        assertEquals(articleDAO.findArticle(4l).getCreator().getName(),"UNDEFINED");
+        companyDAO.changeArticlesCreator(2l,4l,1l);
+        assertEquals(companyDAO.findArticle(4l).getCreator().getName(),"UNDEFINED");
     }
 
     @Test
     public void removeTest(){
         int firstLook, secondLook;
 
-        firstLook = articleDAO.getAll().size();
-        Company a = articleDAO.findArticle(2l);
-        articleDAO.deleteArticle(2l,a);
-        secondLook = articleDAO.getAll().size();
+        firstLook = companyDAO.getAll().size();
+        Company a = companyDAO.findArticle(2l);
+        companyDAO.deleteArticle(2l,a);
+        secondLook = companyDAO.getAll().size();
         assertNotEquals(firstLook, secondLook);
 
         firstLook = topicDAO.getAll().size();

@@ -27,26 +27,17 @@ public class UserDAOImpl implements UserDAO {
     @PersistenceContext(unitName = "UNIT2")
     private EntityManager entityManager;
 
-    private boolean isAdmin(Long pId){
+    private boolean isAdmin(Long pId) {
         Query q = entityManager.createQuery("SELECT p FROM User p WHERE p.id=:pId");
-        q.setParameter("pId",pId);
-        User p = (User)q.getSingleResult();
-        for(Role r :p.getRole()){
-            if(Objects.equals(r.getName(), "ADMIN")){
-                return true;
-            }
-        }
-        return false;
+        q.setParameter("pId", pId);
+        User p = (User) q.getSingleResult();
+        return Objects.equals(p.getRole(), Role.ADMIN);
     }
     @Override
     @Transactional
     public User savePerson(Long pid, User newPerson) {
-        List<Role> roles = new ArrayList<>();
-        for(Role r :  newPerson.getRole()) {
-            Role r1 = entityManager.find(Role.class,r.getId() );
-            roles.add(r1);
-        }
-        User u = new User(newPerson.getName(),roles,newPerson.getLogin(),newPerson.getPassword());
+        User u = new User(newPerson.getName(),newPerson.getRole(),
+                newPerson.getLogin(),newPerson.getPassword());
         if(isAdmin(pid)) {
             if (newPerson.getId() == null) {
                 entityManager.persist(u);
@@ -58,6 +49,9 @@ public class UserDAOImpl implements UserDAO {
         return u;
     }
 
+    public User addCompanyToUser(Long pId,User user, Company company){
+        Com
+    }
     @Override
     public User findPerson(Long id){
         if(id != null)return entityManager.find(User.class,id);
