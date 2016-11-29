@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by Maksym on 1/12/2016.
@@ -49,9 +50,15 @@ public class UserDAOImpl implements UserDAO {
         return u;
     }
 
+    @Override
     public User addCompanyToUser(Long pId,User user, Company company){
-        Com
+        if(user.getId()!=null && company.getId()!=null){
+            user.setCompany(company);
+            entityManager.merge(user);
+        }
+        return null;
     }
+
     @Override
     public User findPerson(Long id){
         if(id != null)return entityManager.find(User.class,id);
@@ -67,33 +74,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> findUsersByRole(Role role){
-        List<User> users = new ArrayList<>();
-        for(User u : getAll()){
-            for(Role r : u.getRole()){
-                if(r.equals(role)){
-                    users.add(u);
-                }
-            }
-        }
-        return users;
+        return getAll().stream()
+                .filter(u -> u.getRole().getRole().equals(role.getRole()))
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public void deletePerson(Long pId,User person) {
-        User person4usage = null;
-        if(isAdmin(pId))
-        {
-            Query q = entityManager.createQuery("SELECT n FROM Article n WHERE n.creator.id = :pId");
-            q.setParameter("pId", person.getId());
-            for (User p : getAll()){
-                if(p.getName().equals("UNDEFINED"))person4usage = p;
-            }
-            for(Company n : (List<Company>)q.getResultList()){
-                n.setCreator(person4usage);
-            }
+    public void deletePerson(Long pId, User person) {
+        if (isAdmin(pId)) {
             User newP = entityManager.find(User.class, person.getId());
-            entityManager.remove(newP);
+            if (newP != null) entityManager.remove(newP);
         }
     }
 
@@ -101,12 +92,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAll() {
         Query q = entityManager.createQuery("select p from User p");
-        return q.getResultList();
-    }
-    @Override
-    public List<Role> getAllPersonsRoles(Long id){
-        Query q = entityManager.createQuery("select p.role from User p where p.id = :id ");
-        q.setParameter("id",id);
         return q.getResultList();
     }
 
@@ -123,9 +108,8 @@ public class UserDAOImpl implements UserDAO {
         Query query = entityManager.createQuery("SELECT p FROM User p ORDER BY " + sortFields + " " + sortDirections);
         query.setFirstResult(startPosition);
         query.setMaxResults(maxResults);
-        for(User p : (List<User>)query.getResultList()){
-            if ( !p.getName().equals("UNDEFINED"))pList.add(p);
-        }
+        pList.addAll(((List<User>) query.getResultList())
+                .stream().filter(p -> !p.getName().equals("UNDEFINED")).collect(Collectors.toList()));
         return pList;
     }
 

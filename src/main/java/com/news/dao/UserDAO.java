@@ -1,5 +1,6 @@
 package com.news.dao;
 
+import com.news.entities.Company;
 import com.news.entities.Role;
 import com.news.entities.User;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public interface UserDAO {
 
     User savePerson(Long pId, User newPerson);
+
+    User addCompanyToUser(Long pId, User user, Company company);
 
     User findPerson(Long id);
 

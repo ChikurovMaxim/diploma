@@ -91,6 +91,10 @@ public class User implements Serializable {
         this.result = result;
     }
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
