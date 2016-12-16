@@ -1,7 +1,7 @@
 package com.news.rest;
 
 import com.news.dao.UserDAO;
-import com.news.entities.User;
+import com.news.entities.Users;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -20,16 +20,16 @@ public class LoginResource {
     @EJB(name = "java:global/UserDAOImpl")
     UserDAO personService;
 
-    private User validateLoginData(String login, String password){
+    private Users validateLoginData(String login, String password){
         return personService.getUserIdByAuthData(login,password);
     }
 
     @POST
     @Path("{login}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public User login(@PathParam("login") String login, String password,@Context HttpServletRequest request) {
+    public Users login(@PathParam("login") String login, String password, @Context HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User logedP = validateLoginData(login,password);
+        Users logedP = validateLoginData(login,password);
         session.setAttribute("personId", logedP.getId());
         return logedP;
     }
