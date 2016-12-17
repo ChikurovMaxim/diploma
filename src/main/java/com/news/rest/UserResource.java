@@ -2,10 +2,7 @@ package com.news.rest;
 
 import com.news.dao.RecordDao;
 import com.news.dao.UserDAO;
-import com.news.entities.Record;
-import com.news.entities.Role;
 import com.news.entities.Users;
-import org.json.JSONObject;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.time.LocalDateTime;
-import java.util.*;
 
 /**
  * REST Service to expose the data to display in the UI grid.
