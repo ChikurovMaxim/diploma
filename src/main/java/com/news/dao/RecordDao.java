@@ -1,6 +1,7 @@
 package com.news.dao;
 
 import com.news.entities.Record;
+import com.news.entities.Users;
 
 import javax.ejb.Local;
 import java.sql.Date;
@@ -12,11 +13,7 @@ import java.util.List;
 @Local
 public interface RecordDao {
 
-    List<Record> getAllRecords();
-
     Record findRecord(int rId);
 
-    List<Record> findRecordsByUser(String userName);
-
-    List<Record> findRecordsByDate(Date date);
+    List<Record> findRecordsByUser(Users userName);
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="server">
+<head>
+    <meta charset="UTF-8">
+    <title>Plains</title>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/css/ng-grid.min.css" />
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-resource.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/ng-grid-2.0.11.min.js"></script>
+    <script src="lib/ng-table.min.js"></script>
+
+    <script src="script/menu.js"></script>
+    <link rel="stylesheet" href="css/menu.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="lib/css/ng-table.min.css"/>
+
+    <!-- endbuild -->
+</head>
+<body ng-controller="serverController">
+<div class="formServer">
+    <ul class="menuUl" ng-controller="menu">
+        <li id="formsLi" class="menuLi" ng-class="navClass('records')"><a href='server.html'>Main</a></li>
+        <li class="menuLi" ng-class="navClass('plains')"><a href='plains.html'>Plains</a></li>
+        <li ng-controller="serverController" ng-show="isLogedInP" class="logout" ng-class="navClass('logedP')">
+            <form id ="loginForm" name="logiinForm" ng-submit="login()">
+                <label class="labelL" for="login">Login</label><input class="loginInput" id = "login" maxlength="20" type="text" />
+                <label class="labelL" for="password">Password</label><input class="loginInput" id = "password" maxlength="20" type="password" />
+                <button class="loginButton" type="submit">Log In</button>
+            </form>
+        </li>
+        <li ng-show="!isLogedInP" class="logedP" id="logedName" ng-class="navClass('logedP')">
+            {{logedPerson.name}}
+        </li>
+        <li ng-show="!isLogedInP"  class="menuLiR"><button class = "logout" ng-click="logOutF()">Log out</button></li>
+    </ul>
+</div>
+<div class="grid">
+    <table ng-table="plains.tableParams" class="table" show-filter="true">
+        <tr ng-repeat="plain in plainData" >
+            <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                {{plain.name}}
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

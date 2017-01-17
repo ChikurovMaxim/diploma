@@ -13,11 +13,6 @@ public interface UserDAO {
 
     Users findPerson(int id);
 
-    List getAll();
-
     Users getUserIdByAuthData(String login, String password);
 
-    Users findUserByName(String name);
-
-    List<Users> findUsersByRole(String role);
 }

@@ -4,13 +4,14 @@ import com.news.dao.UserDAO;
 import com.news.entities.Users;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-
+@Stateless
 @ApplicationPath("/resources")
 @Path("login")
 @Consumes(MediaType.APPLICATION_JSON)

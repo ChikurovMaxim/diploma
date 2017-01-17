@@ -3,6 +3,7 @@ package com.news.daoimpl;
 
 import com.news.dao.RecordDao;
 import com.news.entities.Record;
+import com.news.entities.Users;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,33 +27,16 @@ public class RecordDaoImpl implements RecordDao{
     private EntityManager entityManager;
 
     @Override
-    public List<Record> getAllRecords() {
-        Query q = entityManager.createQuery("SELECT r FROM Record r");
-        return q.getResultList();
-    }
-
-    @Override
     public Record findRecord(int rId) {
-        try {
-            Query q = entityManager.createQuery("SELECT r FROM Record r WHERE r.Id = :id");
-            q.setParameter("id", rId);
-            return (Record) q.getSingleResult();
-        }catch (NoResultException e ){
-            return null;
-        }
+        Query q = entityManager.createQuery("SELECT r FROM Record r where r.Id = :id");
+        q.setParameter("id",rId);
+        return (Record) q.getSingleResult();
     }
 
     @Override
-    public List<Record> findRecordsByUser(String userName) {
-        Query q = entityManager.createQuery("SELECT r FROM Record r WHERE r.user = :user_name");
-        q.setParameter("user_name" , userName);
-        return q.getResultList();
-    }
-
-    @Override
-    public List<Record> findRecordsByDate(Date date) {
-        Query q = entityManager.createQuery("SELECT r FROM Record r WHERE r.date = :date");
-        q.setParameter("date" , date);
+    public List<Record> findRecordsByUser(Users userName) {
+        Query q = entityManager.createQuery("SELECT r FROM Record r WHERE r.user = :user");
+        q.setParameter("user",userName);
         return q.getResultList();
     }
 }

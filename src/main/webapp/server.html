@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="server">
+<head>
+    <meta charset="UTF-8">
+    <title>Server</title>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/css/ng-grid.min.css" />
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-resource.min.js"></script>
+    <script src="lib/ui-bootstrap-tpls.min.js"></script>
+    <script src="lib/ng-grid-2.0.11.min.js"></script>
+    <script src="lib/ng-table.min.js"></script>
+
+    <script src="script/server.js"></script>
+    <script src="script/menu.js"></script>
+    <link rel="stylesheet" href="css/menu.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- endbuild -->
+</head>
+<body ng-controller="serverController">
+<div class="formServer">
+    <ul class="menuUl" ng-controller="menu">
+        <li id="formsLi" class="menuLi" ng-class="navClass('records')"><a href='server.html'>Main</a></li>
+        <li class="menuLi" ng-class="navClass('plains')"><a href='plains.html'>Plains</a></li>
+        <li ng-controller="serverController" ng-show="!isLogedInP" class="logout" ng-class="navClass('logedP')">
+            <form id ="loginForm" name="logiinForm" ng-submit="login()">
+                <label class="labelL" for="login">Login</label><input ng-model = "login" class="loginInput" id = "login" maxlength="20" type="text" />
+                <label class="labelL" for="password">Password</label><input ng-model = "pass" class="loginInput" id = "password" maxlength="20" type="password" />
+                <button class="loginButton" ng-click="loginFunc()">Log In</button>
+            </form>
+        </li>
+        <li ng-show="isLogedInP" class="logedP" id="logedName" ng-class="navClass('logedP')">
+            {{logedPerson.name}}
+        </li>
+        <li ng-show="isLogedInP"  class="menuLiR"><button class = "logout" ng-click="logOutF()">Log out</button></li>
+    </ul>
+</div>
+<div style="margin: 5%;float: left;">
+    <div style="text-align: left">
+        <h6>Комплексные авиационные тренажеры предназначены для тренировки и</h6>
+        <h6>профессиональной проверки летного состава.Процесс тренировки</h6>
+        <h6>определяется программами, которые включают:</h6>
+        <h6>• основные сведения о сроках, местах и условиях тренировки;</h6>
+        <h6>• перечень упражнений для выполнения экипажем;</h6>
+        <h6>• критерии оценки знаний и навыков;</h6>
+        <h6>• правила оформления документации тренировки;</h6>
+        <h6>• описание процедур проведения упражнений.</h6>
+        <h6>Описание процедур проведения упражнений включает:</h6>
+        <h6>• условия полета;</h6>
+        <h6>• основную схему упражнения (например, взлет, набор высоты, полет в зону);</h6>
+        <h6>• отказы и ситуации, отрабатываемые в упражнении;</h6>
+        <h6>• временной регламент упражнения.</h6>
+        <h6>Программа не формализует конкретные показатели и</h6>
+        <h6>значения отдельных оценок знаний и навыков,</h6>
+        <h6>ограничиваясь общими указаниями по проведению оценивания и</h6>
+        <h6>правилами формирования общей оценки для пилотов.</h6>
+    </div>
+</div>
+<div class="grid">
+    <table ng-table="records.tableParams" class="table" show-filter="true">
+        <tr ng-repeat="record in recordsData" ng-click="getRecordData(records.id)">
+            <td title="'User'">
+                {{record.user.name}}
+            </td>
+            <td title="'Date'">
+                {{record.date}}
+            </td>
+            <td title="'Plain model'">
+                {{record.PLAIN_MODEL.name}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

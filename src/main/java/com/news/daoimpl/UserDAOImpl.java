@@ -20,35 +20,13 @@ import java.util.stream.Collectors;
 public class UserDAOImpl implements UserDAO {
 
 
-    @PersistenceContext(unitName = "UNIT2")
+    @PersistenceContext(unitName = "UNIT")
     private EntityManager entityManager;
 
     @Override
     public Users findPerson(int id){
         if(id != 0)return entityManager.find(Users.class,id);
         else return null;
-    }
-
-    @Override
-    public Users findUserByName(String name) {
-        Query q = entityManager.createQuery("SELECT u FROM Users u WHERE u.name = :uname");
-        q.setParameter("uname", name);
-        return (Users)q.getSingleResult();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Users> findUsersByRole(String role){
-        return getAll().stream()
-                .filter(u -> u.getRole().equals(role))
-                .collect(Collectors.toList());
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Users> getAll() {
-        Query q = entityManager.createQuery("select p from Users p");
-        return q.getResultList();
     }
 
     @Override

@@ -15,14 +15,18 @@ h3 {
     margin-left: 5%;
     margin-right: 5%;
 }
-
+h6{
+    font-size: small;
+}
 .grid {
     width: 40%;
-    float: left;
-    margin-left: 5%;
-    margin-right: 5%;
+    float: right;
+    margin: 5%;
 }
+.grid h1{
+    text-align: left;
 
+}
 .gridLists{
     width: 21%;
     float: right;
