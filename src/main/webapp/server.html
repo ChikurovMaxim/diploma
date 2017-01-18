@@ -31,10 +31,12 @@
                 <button class="loginButton" ng-click="loginFunc()">Log In</button>
             </form>
         </li>
-        <li ng-show="isLogedInP" class="logedP" id="logedName" ng-class="navClass('logedP')">
+        <li ng-controller="serverController" ng-show="isLogedInP" class="logedP" id="logedName">
             {{logedPerson.name}}
         </li>
-        <li ng-show="isLogedInP"  class="menuLiR"><button class = "logout" ng-click="logOutF()">Log out</button></li>
+        <li ng-controller="serverController" ng-show="isLogedInP">
+            <button class="logout" ng-click="logOutF()">Log out</button>
+        </li>
     </ul>
 </div>
 <div style="margin: 5%;float: left;">

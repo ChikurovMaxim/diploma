@@ -24,17 +24,19 @@
     <ul class="menuUl" ng-controller="menu">
         <li id="formsLi" class="menuLi" ng-class="navClass('records')"><a href='server.html'>Main</a></li>
         <li class="menuLi" ng-class="navClass('plains')"><a href='plains.html'>Plains</a></li>
-        <li ng-controller="serverController" ng-show="isLogedInP" class="logout" ng-class="navClass('logedP')">
+        <li ng-controller="serverController" ng-show="!isLogedInP" class="logout" ng-class="navClass('logedP')">
             <form id ="loginForm" name="logiinForm" ng-submit="login()">
-                <label class="labelL" for="login">Login</label><input class="loginInput" id = "login" maxlength="20" type="text" />
-                <label class="labelL" for="password">Password</label><input class="loginInput" id = "password" maxlength="20" type="password" />
-                <button class="loginButton" type="submit">Log In</button>
+                <label class="labelL" for="login">Login</label><input ng-model = "login" class="loginInput" id = "login" maxlength="20" type="text" />
+                <label class="labelL" for="password">Password</label><input ng-model = "pass" class="loginInput" id = "password" maxlength="20" type="password" />
+                <button class="loginButton" ng-click="loginFunc()">Log In</button>
             </form>
         </li>
-        <li ng-show="!isLogedInP" class="logedP" id="logedName" ng-class="navClass('logedP')">
+        <li ng-controller="serverController" ng-show="isLogedInP" class="logedP" id="logedName">
             {{logedPerson.name}}
         </li>
-        <li ng-show="!isLogedInP"  class="menuLiR"><button class = "logout" ng-click="logOutF()">Log out</button></li>
+        <li ng-controller="serverController" ng-show="isLogedInP">
+            <button class="logout" ng-click="logOutF()">Log out</button>
+        </li>
     </ul>
 </div>
 <div class="grid">
